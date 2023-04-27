@@ -8,7 +8,7 @@ namespace EFCoreBasicCaching
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
        
-            public int MenuId { get; set; }
+           // public int MenuId { get; set; }
         public double TotalPrice { get; set; }
 
         public ICollection<Menu> MenuItems { get; set; } = null!;

@@ -29,29 +29,37 @@ namespace EFCoreBasicCaching
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Model builder for menu
-            modelBuilder.Entity<Menu>(entity =>
+            try
             {
-                entity.HasKey(e => e.MenuId);
-                entity.Property(e => e.MenuId);
-                entity.Property(e => e.MenuName).HasMaxLength(150).IsRequired();
-                entity.Property(e => e.MenuDescription).HasMaxLength(250);
-                entity.Property(e => e.Price).HasDefaultValue(1.75);
-                entity.ToTable(nameof(Menu));
-                     });
-           // Model builder for order
-            modelBuilder.Entity<Order>
-                (entity =>
+
+                                //Model builder for menu
+                modelBuilder.Entity<Menu>(entity =>
                 {
-                    entity.HasKey(e => e.OrderId);
-
-                    entity.Property(e => e.OrderId);
+                    entity.HasKey(e => e.MenuId);
                     entity.Property(e => e.MenuId);
-                    entity.Property(e => e.OrderDate);
-                    entity.ToTable(nameof(Order));
+                    entity.Property(e => e.MenuName).HasMaxLength(150).IsRequired();
+                    entity.Property(e => e.MenuDescription).HasMaxLength(250);
+                    entity.Property(e => e.Price).HasDefaultValue(1.75);
+                    entity.ToTable(nameof(Menu));
                 });
-          modelBuilder.Entity<Order>().HasMany(e=>e.MenuItems).WithOne().HasForeignKey(e=>e.MenuId).HasPrincipalKey(e=>e.OrderId);
+                // Model builder for order
+                modelBuilder.Entity<Order>
+                    (entity =>
+                    {
+                        entity.HasKey(e => e.OrderId);
 
+                        entity.Property(e => e.OrderId);
+                        // entity.Property(e => e.MenuId);
+                        entity.Property(e => e.OrderDate);
+                        entity.ToTable(nameof(Order));
+                    });
+                // modelBuilder.Entity<Order>().HasMany(e=>e.MenuItems).WithOne().HasForeignKey(e=>e.MenuId).HasPrincipalKey(e=>e.OrderId);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
 

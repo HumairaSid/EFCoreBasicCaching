@@ -10,16 +10,20 @@ namespace EFCoreBasicCaching
             using var db= new RestaurantContext();
             // Note: This sample requires the database to be created before running.
             Console.WriteLine($"Database path: {db.DbPath}.");
+            
+            // Ensure the schema is created
+            db.Database.EnsureCreated();
             // Create a menu
             Console.WriteLine("Inserting a new Menu");
-            db.Add(new Menu {MenuId= 1, MenuName = "Chilly Chicken", MenuDescription = "Spicy chicken, fried with bell peppers in hot garlic sauce." });
+            db.Add(new Menu {MenuId= 1, MenuName = "Chilly Chicken", 
+                MenuDescription = "Spicy chicken, fried with bell peppers in hot garlic sauce." });
             db.SaveChanges();
 
             // Create a Order
             Console.WriteLine("Inserting a new Order");
-            db.Add(new Order { OrderDate = DateTime.Now, MenuId = 1, TotalPrice = 20 });
+            db.Add(new Order { OrderDate = DateTime.Now,  TotalPrice = 20 });
             db.SaveChanges();
-            Console.WriteLine("Test");
+            Console.WriteLine("Data inserted successfully.");
 
         }
 
